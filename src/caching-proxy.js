@@ -1,9 +1,3 @@
-console.log(forge);
-const sum = (a, b) => {
-  console.log('function was called');
-  return a + b;
-};
-
 // добавить ограничение на число элементов в кеше
 const cachingProxy = (target) => {
   const cache = {};
@@ -25,6 +19,11 @@ const cachingProxy = (target) => {
       }
     }
   });
+};
+
+const sum = (a, b) => {
+  console.log('function was called');
+  return a + b;
 };
 
 const cachingSum = cachingProxy(sum);
