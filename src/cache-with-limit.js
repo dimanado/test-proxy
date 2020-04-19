@@ -1,7 +1,6 @@
 class Node {
-    constructor(data = null, prev = null, next = null) {
+    constructor(data = null, next = null) {
         this.data = data;
-        this.prev = prev;
         this.next = next;
     }
 }
@@ -31,14 +30,12 @@ class CacheWithLimit {
             const removedDataKey = this._head.data;
 
             delete this.storage[removedDataKey];
-
-            this._head = this._head.next;
-            this._head.prev = null;
+            const { next } = this._head;
+            this._head.next = null;
+            this._head = next;
         } else {
             this.length++;
         }
-
-        node.prev = this._tail;
         this._tail.next = node;
         this._tail = node;
 
