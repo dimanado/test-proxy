@@ -11,11 +11,11 @@ class CacheWithLimit {
         this.length = 0;
         this._head = null;
         this._tail = null;
-        this.storage = {};
+        this._storage = {};
     }
 
     append(key, data) {
-        this.storage[key] = data;
+        this._storage[key] = data;
         const node = new Node(key);
 
         if (!this.length) {
@@ -29,7 +29,7 @@ class CacheWithLimit {
         if (this.length === this.limit) {
             const removedDataKey = this._head.data;
 
-            delete this.storage[removedDataKey];
+            delete this._storage[removedDataKey];
             const { next } = this._head;
             this._head.next = null;
             this._head = next;
@@ -41,15 +41,7 @@ class CacheWithLimit {
 
         return this;
     }
+    get(key) {
+        return this._storage[key];
+    }
 }
-
-const cache = new CacheWithLimit(3);
-
-cache.append(1, '1');
-cache.append(2, '2');
-cache.append(3, '3');
-console.log('cache', cache);
-cache.append(4, '4');
-console.log('cache', cache);
-cache.append(5, '5');
-console.log('cache', cache);
